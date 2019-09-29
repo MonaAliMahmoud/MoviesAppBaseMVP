@@ -10,9 +10,7 @@ interface BaseContract {
         fun showLoading()
         fun hideLoading()
         fun showError(error: Int)
-        fun hideError(error: Int)
-//        fun showError(error: String)
-//        fun hideError(error: String)
+        fun showError(error: String)
         @LayoutRes
         fun getLayoutResourceId(): Int
     }

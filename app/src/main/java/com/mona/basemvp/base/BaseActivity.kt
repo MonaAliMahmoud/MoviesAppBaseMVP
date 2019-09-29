@@ -1,12 +1,14 @@
 package com.mona.basemvp.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.NonNull
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity<Presenter: BasePresenter<*, *>>: AppCompatActivity(), BaseContract.BaseIView {
+abstract class BaseActivity<Presenter: BasePresenter<*, *>>
+    : AppCompatActivity(), BaseContract.BaseIView {
 
     abstract val presenter: Presenter
     @LayoutRes
@@ -24,27 +26,23 @@ abstract class BaseActivity<Presenter: BasePresenter<*, *>>: AppCompatActivity()
     }
 
     override fun showLoading(){
-        TODO()
+        Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
     }
 
     override fun hideLoading(){
-        TODO()
+        Toast.makeText(this, "Loaded", Toast.LENGTH_LONG).show()
     }
 
     override fun showError(@StringRes error: Int){
-        TODO()
-    }
-
-    override fun hideError(@StringRes error: Int){
-        TODO()
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 
     override fun showError(@NonNull error: String){
-        TODO()
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 
-    override fun hideError(@NonNull error: String){
-        TODO()
+    override fun onDestroy() {
+        presenter.onViewDestroy()
+        super.onDestroy()
     }
-
 }
