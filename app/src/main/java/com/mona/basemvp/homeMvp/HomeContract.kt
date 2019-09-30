@@ -16,6 +16,6 @@ interface HomeContract {
     }
 
     interface HomeIRepository: BaseContract.BaseIRepository{
-
+        fun getUrl(pageNum: String, loadData: (popularInfo: PopularInfo?) -> Unit)
     }
 }
