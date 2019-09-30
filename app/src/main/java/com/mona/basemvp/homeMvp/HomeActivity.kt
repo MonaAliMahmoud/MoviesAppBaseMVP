@@ -1,6 +1,7 @@
 package com.mona.basemvp.homeMvp
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -28,6 +29,25 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView {
 
         listLayoutManager = LinearLayoutManager(this)
         configRecycleView(popularInfos)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val currentItems = listLayoutManager.childCount
+                val scrolledItems = listLayoutManager.findFirstCompletelyVisibleItemPosition()
+                val totalItems = listLayoutManager.itemCount
+                if (currentItems + scrolledItems == totalItems) {
+                    presenter.loadNextPage()
+                }
+            }
+        })
+
+        swipeRefresh.setOnRefreshListener {
+            Handler().postDelayed({
+                swipeRefresh.isRefreshing = false
+                presenter.refresh(popularInfos)
+            }, 1000)
+        }
     }
 
     override fun configRecycleView(popularInfos: ArrayList<PopularInfo>) {

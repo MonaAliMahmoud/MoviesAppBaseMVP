@@ -11,7 +11,7 @@ import retrofit2.Response
 class HomeRepository: BaseRepository(), HomeContract.HomeIRepository {
     var popularInfo: ArrayList<PopularInfo>? = null
 
-    override fun getUrl(pageNum: String, loadData: (popularInfo: PopularInfo?) -> Unit) {
+    override fun getUrl(pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit) {
         remoteDataSource.service.callJson(pageNum)
             .enqueue(object : Callback<PopularList> {
                 override fun onFailure(call: Call<PopularList>, t: Throwable) {

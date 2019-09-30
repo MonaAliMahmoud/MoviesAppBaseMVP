@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface RetrofitApi {
     @GET(POPULAR_PEOPLE_URL)
-    fun callJson(@Query ("page") page: String): Call<PopularList>
+    fun callJson(@Query ("page") page: Int): Call<PopularList>
 
     @GET(SEARCH_URL)
     fun searching(@Query ("query") searchStr: String): Call<PopularList>
