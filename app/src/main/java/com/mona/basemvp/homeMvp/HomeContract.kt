@@ -9,6 +9,7 @@ interface HomeContract {
         fun addPopularList(popularInfo: PopularInfo)
         fun changeList()
         fun configRecycleView(popularInfos: ArrayList<PopularInfo>)
+        fun goToDetailsScreen(imgPath: String, popularInf: PopularInfo)
     }
 
     interface HomeIPresenter: BaseContract.BaseIPresenter{

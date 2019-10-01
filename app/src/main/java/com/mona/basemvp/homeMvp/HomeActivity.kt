@@ -1,5 +1,6 @@
 package com.mona.basemvp.homeMvp
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mona.basemvp.R
 import com.mona.basemvp.base.BaseActivity
+import com.mona.basemvp.details_mvp.DetailsActivity
 import com.mona.basemvp.pojo.PopularInfo
 import java.util.ArrayList
 
@@ -69,5 +71,16 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView {
 
     override fun addPopularList(popularInfo: PopularInfo) {
         popularInfos.add(popularInfo)
+    }
+
+    override fun goToDetailsScreen(imgPath: String, popularInf: PopularInfo) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        val arg = Bundle()
+        arg.putString("popName", popularInf.name)
+        arg.putString("popeDepart", popularInf.known_for_department)
+        arg.putString("profile", imgPath + popularInf.profile_path)
+        arg.putInt("id", popularInf.id)
+        intent.putExtra("data", arg)
+        startActivity(intent)
     }
 }

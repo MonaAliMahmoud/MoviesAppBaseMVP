@@ -56,6 +56,7 @@ class MyListAdapter(private val info: ArrayList<PopularInfo>, private var contex
 
         fun bindData(popularInf: PopularInfo) {
             itemView.setOnClickListener {
+                homeActivity.presenter.onItemViewClicked(popularInf)
             }
         }
     }

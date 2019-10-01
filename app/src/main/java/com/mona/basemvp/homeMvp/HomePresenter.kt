@@ -31,4 +31,9 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
         page = 1
         callJson()
     }
+
+    fun onItemViewClicked(popularInf: PopularInfo) {
+        val imgPath = "https://image.tmdb.org/t/p/w500/"
+        view!!.goToDetailsScreen(imgPath, popularInf)
+    }
 }
