@@ -2,7 +2,7 @@ package com.mona.basemvp.home_mvp
 
 import com.mona.basemvp.base.BaseContract
 import com.mona.basemvp.pojo.PopularInfo
-import java.util.ArrayList
+import io.reactivex.Observable
 
 interface HomeContract {
     interface HomeIView: BaseContract.BaseIView{
@@ -17,7 +17,7 @@ interface HomeContract {
     }
 
     interface HomeIRepository: BaseContract.BaseIRepository{
-        fun getUrl(pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit)
+        fun getUrl(pageNum: Int): Observable<PopularInfo>
         fun getSearchList(searchStr: String, pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit)
     }
 }

@@ -2,6 +2,7 @@ package com.mona.basemvp.home_mvp
 
 import com.mona.basemvp.base.BasePresenter
 import com.mona.basemvp.pojo.PopularInfo
+import io.reactivex.functions.Consumer
 
 class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.HomeIRepository) :
     BasePresenter<HomeContract.HomeIView, HomeContract.HomeIRepository>(view, repository) {
@@ -15,11 +16,12 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
 
     fun callJson() {
         view!!.showLoading()
-        repository.getUrl(page){
+        subscribe(repository.getUrl(page),
+            Consumer{
             view!!.hideLoading()
             view!!.addPopularList(it!!)
             view!!.changeList()
-        }
+        })
     }
 
     fun loadNextPage(){
