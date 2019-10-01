@@ -78,6 +78,14 @@ class DetailsActivity: BaseActivity<DetailsPresenter>(), DetailsContract.Details
         Glide.with(this)
             .load(popProfile)
             .into(profile!!)
+
+        profile!!.setOnClickListener {
+            val intent = Intent(this@DetailsActivity, FullImageActivity::class.java)
+            val arg = Bundle()
+            arg.putString("picture_path", popProfile)
+            intent.putExtra("data", arg)
+            startActivity(intent)
+        }
     }
 
     override fun configGridRecycleView(profiles: ArrayList<Profiles>) {

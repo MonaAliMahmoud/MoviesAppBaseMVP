@@ -4,7 +4,7 @@ import com.mona.basemvp.base.BaseContract
 
 interface FullImageContract {
     interface FullImageIView: BaseContract.BaseIView{
-
+        fun saveImageToGallery()
     }
 
     interface FullImageIPresenter: BaseContract.BaseIPresenter{
@@ -12,6 +12,6 @@ interface FullImageContract {
     }
 
     interface FullImageIRepository: BaseContract.BaseIRepository{
-
+        fun setPicturePath(picturePath: String)
     }
 }
