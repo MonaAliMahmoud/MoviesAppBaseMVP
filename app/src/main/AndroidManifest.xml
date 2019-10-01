@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".details_mvp.DetailsActivity"/>
+        <activity android:name=".full_image_mvp.FullImageActivity"/>
     </application>
 
 </manifest>

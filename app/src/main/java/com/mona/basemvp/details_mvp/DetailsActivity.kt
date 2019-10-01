@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mona.basemvp.R
 import com.mona.basemvp.base.BaseActivity
+import com.mona.basemvp.full_image_mvp.FullImageActivity
 import com.mona.basemvp.pojo.Profiles
 import java.util.ArrayList
 
