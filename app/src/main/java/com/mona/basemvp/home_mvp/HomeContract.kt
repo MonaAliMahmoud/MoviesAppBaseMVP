@@ -1,4 +1,4 @@
-package com.mona.basemvp.homeMvp
+package com.mona.basemvp.home_mvp
 
 import com.mona.basemvp.base.BaseContract
 import com.mona.basemvp.pojo.PopularInfo
@@ -18,5 +18,6 @@ interface HomeContract {
 
     interface HomeIRepository: BaseContract.BaseIRepository{
         fun getUrl(pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit)
+        fun getSearchList(searchStr: String, pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit)
     }
 }

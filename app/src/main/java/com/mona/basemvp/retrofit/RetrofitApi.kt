@@ -14,7 +14,7 @@ interface RetrofitApi {
     fun callJson(@Query ("page") page: Int): Call<PopularList>
 
     @GET(SEARCH_URL)
-    fun searching(@Query ("query") searchStr: String): Call<PopularList>
+    fun searching(@Query ("query") searchStr: String, @Query ("page") page: Int): Call<PopularList>
 
     @GET("person/{popularId}/images?")
     fun getProfiles(@Path ("popularId") popularId: String): Call<PopularProfile>

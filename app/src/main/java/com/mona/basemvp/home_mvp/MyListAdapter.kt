@@ -1,4 +1,4 @@
-package com.mona.basemvp.homeMvp
+package com.mona.basemvp.home_mvp
 
 import android.content.Context
 import android.util.Log
@@ -33,8 +33,9 @@ class MyListAdapter(private val info: ArrayList<PopularInfo>, private var contex
         viewHolder.popDepart.text = popularInfo!!.known_for_department
 
         Glide.with(this.context)
-                .load(imgPath + popularInfo!!.profile_path)
-                .into(popImg!!)
+            .load(imgPath + popularInfo!!.profile_path)
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(popImg!!)
 
         viewHolder.bindData(popularInfo!!)
     }

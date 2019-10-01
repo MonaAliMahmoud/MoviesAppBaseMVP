@@ -1,8 +1,10 @@
-package com.mona.basemvp.homeMvp
+package com.mona.basemvp.home_mvp
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -12,14 +14,21 @@ import com.mona.basemvp.details_mvp.DetailsActivity
 import com.mona.basemvp.pojo.PopularInfo
 import java.util.ArrayList
 
-class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView {
+class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView,
+                        android.widget.SearchView.OnQueryTextListener {
 
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var listLayoutManager: LinearLayoutManager
 
     private lateinit var listAdapter: MyListAdapter
+
+    private var searchView: android.widget.SearchView? = null
+    var menuItem: MenuItem? = null
+    private var isSearchAction = false
+
     private var popularInfos = ArrayList<PopularInfo>()
+    private var searchStr = ""
 
     override val presenter: HomePresenter = HomePresenter(this, HomeRepository())
 
@@ -39,7 +48,11 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView {
                 val scrolledItems = listLayoutManager.findFirstCompletelyVisibleItemPosition()
                 val totalItems = listLayoutManager.itemCount
                 if (currentItems + scrolledItems == totalItems) {
-                    presenter.loadNextPage()
+                    if (isSearchAction) {
+                        presenter.loadNextSearchPage(searchStr)
+                    } else {
+                        presenter.loadNextPage()
+                    }
                 }
             }
         })
@@ -47,9 +60,39 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView {
         swipeRefresh.setOnRefreshListener {
             Handler().postDelayed({
                 swipeRefresh.isRefreshing = false
-                presenter.refresh(popularInfos)
+                presenter.refresh()
             }, 1000)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.search, menu)
+        menuItem = menu.findItem(R.id.search_item)
+        searchView = menuItem!!.actionView as android.widget.SearchView
+        searchView!!.setOnQueryTextListener(this)
+        searchView!!.clearFocus()
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onQueryTextSubmit(s: String?): Boolean {
+        searchStr = s!!
+        if (searchStr != "") {
+            isSearchAction = true
+            popularInfos.clear()
+            presenter.searchingCall(searchStr)
+        }
+        searchView!!.clearFocus()
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        if (searchView!!.query.isEmpty()) {
+            isSearchAction = false
+            popularInfos.clear()
+            searchView!!.clearFocus()
+            presenter.refresh()
+        }
+        return true
     }
 
     override fun configRecycleView(popularInfos: ArrayList<PopularInfo>) {
