@@ -112,8 +112,8 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeContract.HomeIView,
         recyclerView.layoutManager = listLayoutManager
     }
 
-    override fun addPopularList(popularInfo: PopularInfo) {
-        popularInfos.add(popularInfo)
+    override fun addPopularList(popularInfo: List<PopularInfo>) {
+        listAdapter.add(popularInfo)
     }
 
     override fun goToDetailsScreen(imgPath: String, popularInf: PopularInfo) {

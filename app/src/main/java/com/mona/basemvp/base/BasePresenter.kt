@@ -1,6 +1,7 @@
 package com.mona.basemvp.base
 
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,7 +23,7 @@ abstract class BasePresenter <View: BaseContract.BaseIView,
     }
 
     fun <T>subscribe(
-        observable: Observable<T>,
+        observable: Single<T>,
         success: Consumer<T>,
         error: Consumer<Throwable> = Consumer {  })
     {

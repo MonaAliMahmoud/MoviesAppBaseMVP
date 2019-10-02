@@ -13,7 +13,8 @@ import com.mona.basemvp.R
 import com.mona.basemvp.pojo.PopularInfo
 import java.util.*
 
-class MyListAdapter(private val info: ArrayList<PopularInfo>, private var context: Context) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
+class MyListAdapter(private val info: ArrayList<PopularInfo>, private var context: Context)
+    : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
     private var inflater: LayoutInflater? = null
     private var popularInfo: PopularInfo? = null
     private var imgPath = "https://image.tmdb.org/t/p/w500/"
@@ -42,6 +43,10 @@ class MyListAdapter(private val info: ArrayList<PopularInfo>, private var contex
 
     override fun getItemCount(): Int {
         return info.size
+    }
+
+    fun add(popularInfo: List<PopularInfo>) {
+        info.addAll(popularInfo)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

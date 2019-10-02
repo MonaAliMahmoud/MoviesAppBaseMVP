@@ -4,7 +4,7 @@ import android.util.Log
 import com.mona.basemvp.base.BaseRepository
 import com.mona.basemvp.pojo.PopularInfo
 import com.mona.basemvp.pojo.PopularList
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +13,7 @@ class HomeRepository: BaseRepository(), HomeContract.HomeIRepository {
 
     var popularInfo: ArrayList<PopularInfo>? = null
 
-    override fun getUrl(pageNum: Int): Observable<PopularInfo> {
+    override fun getUrl(pageNum: Int): Single<PopularList> {
         return remoteDataSource.service.callJsonObservable(pageNum)
     }
 

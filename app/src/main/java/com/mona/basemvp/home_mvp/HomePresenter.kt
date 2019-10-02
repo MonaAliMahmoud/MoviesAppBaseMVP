@@ -14,12 +14,12 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
         callJson()
     }
 
-    fun callJson() {
+    private fun callJson() {
         view!!.showLoading()
         subscribe(repository.getUrl(page),
             Consumer{
             view!!.hideLoading()
-            view!!.addPopularList(it!!)
+            view!!.addPopularList(it!!.results!!)
             view!!.changeList()
         })
     }
@@ -43,7 +43,7 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
     fun searchingCall(searchStr: String) {
         popularInfos.clear()
         repository.getSearchList(searchStr, page) {
-            view!!.addPopularList(it!!)
+//            view!!.addPopularList(it!!.)
             view!!.changeList()
         }
     }
