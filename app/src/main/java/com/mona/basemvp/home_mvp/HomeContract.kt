@@ -17,6 +17,6 @@ interface HomeContract {
 
     interface HomeIRepository: BaseContract.BaseIRepository{
         fun getUrl(pageNum: Int): Single<PopularList>
-        fun getSearchList(searchStr: String, pageNum: Int, loadData: (popularInfo: PopularInfo?) -> Unit)
+        fun getSearchList(searchStr: String, pageNum: Int): Single<PopularList>
     }
 }

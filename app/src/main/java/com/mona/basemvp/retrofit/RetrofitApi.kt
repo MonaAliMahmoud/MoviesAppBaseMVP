@@ -12,10 +12,10 @@ import retrofit2.http.Query
 
 interface RetrofitApi {
     @GET(POPULAR_PEOPLE_URL)
-    fun callJsonObservable(@Query ("page") page: Int): Single<PopularList>
+    fun getPopularData(@Query ("page") page: Int): Single<PopularList>
 
     @GET(SEARCH_URL)
-    fun searching(@Query ("query") searchStr: String, @Query ("page") page: Int): Call<PopularList>
+    fun searching(@Query ("query") searchStr: String, @Query ("page") page: Int): Single<PopularList>
 
     @GET("person/{popularId}/images?")
     fun getProfiles(@Path ("popularId") popularId: String): Call<PopularProfile>

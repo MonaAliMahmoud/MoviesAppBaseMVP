@@ -11,28 +11,29 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
     private val popularInfos = ArrayList<PopularInfo>()
 
     override fun onViewReady() {
-        callJson()
+        getActors()
     }
 
-    private fun callJson() {
+    private fun getActors() {
         view!!.showLoading()
         subscribe(repository.getUrl(page),
             Consumer{
-            view!!.hideLoading()
-            view!!.addPopularList(it!!.results!!)
-            view!!.changeList()
-        })
+                view!!.hideLoading()
+                view!!.addPopularList(it!!.results!!)
+                view!!.changeList()
+            }
+        )
     }
 
     fun loadNextPage(){
         page++
-        callJson()
+        getActors()
     }
 
     fun refresh(){
         popularInfos.clear()
         page = 1
-        callJson()
+        getActors()
     }
 
     fun onItemViewClicked(popularInf: PopularInfo) {
@@ -42,10 +43,13 @@ class HomePresenter(view: HomeContract.HomeIView?, repository: HomeContract.Home
 
     fun searchingCall(searchStr: String) {
         popularInfos.clear()
-        repository.getSearchList(searchStr, page) {
-//            view!!.addPopularList(it!!.)
-            view!!.changeList()
-        }
+        subscribe(repository.getSearchList(searchStr, page),
+            Consumer{
+                view!!.hideLoading()
+                view!!.addPopularList(it!!.results!!)
+                view!!.changeList()
+            }
+        )
     }
 
     fun loadNextSearchPage(searchStr: String){

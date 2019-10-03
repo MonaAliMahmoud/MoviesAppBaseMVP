@@ -1,6 +1,5 @@
 package com.mona.basemvp.base
 
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +12,7 @@ abstract class BasePresenter <View: BaseContract.BaseIView,
     val repository: Repository
 ) :BaseContract.BaseIPresenter {
 
-    var compositeDisposable = CompositeDisposable()
+    private var compositeDisposable = CompositeDisposable()
 
     abstract override fun onViewReady()
 

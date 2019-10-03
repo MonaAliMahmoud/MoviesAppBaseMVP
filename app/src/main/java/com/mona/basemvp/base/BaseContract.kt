@@ -20,7 +20,5 @@ interface BaseContract {
         fun onViewDestroy()
     }
 
-    interface BaseIRepository{
-
-    }
+    interface BaseIRepository
 }
